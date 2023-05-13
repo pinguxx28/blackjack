@@ -22,8 +22,8 @@ typedef struct {
 	byte num_cards;
 } hand;
 
-
-void deck_init(card deck[FULL_DECK]);
+void deck_init(void);
+card draw_card(void);
 
 int main(int argc, char *argv[])
 {
@@ -32,15 +32,17 @@ int main(int argc, char *argv[])
 	else if (argc == 2) num_players = atoi(argv[1]); /* TODO: what if NaN */
 	else EXIT("usage: blackjack [num_players] (default = 4)\n");
 
-	card deck[FULL_DECK];
-	deck_init(deck);
+	deck_init();
 
 
 
 	
 }
 
-void deck_init(card deck[FULL_DECK])
+card deck[FULL_DECK];
+byte deck_p = 0;
+
+void deck_init(void)
 {
 	/* fill deck (sorted) */
 	byte card_count = 0;
@@ -59,4 +61,12 @@ void deck_init(card deck[FULL_DECK])
 		deck[i] = deck[j];
 		deck[j] = temp;
 	}
+}
+
+card draw_card(void)
+{
+	if (deck_p < FULL_DECK-1)
+		return deck[deck_p++];
+	else
+		EXIT("exceeded deck's cards\n");
 }
