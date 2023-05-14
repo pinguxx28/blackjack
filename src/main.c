@@ -16,15 +16,16 @@ int main(int argc, char *argv[])
 
 	deck_init();
 
-	hand dealer;
-	dealer.hand_p = 0;
-	dealer.total_value = 0;
-	dealer.num_cards = 0;
+	hand dealer = { 0 };
+	hand player = { 0 };
 
-	for (int n = 0; n < 2; n++)
+	for (int n = 0; n < 2; n++) {
+		get_card(&player);
 		get_card(&dealer);
+	}
 
-	printf("total: %d\n", dealer.total_value);
+	printf("dealer: %d\n", dealer.total_value);
+	printf("player: %d\n", player.total_value);
 	
 
 

@@ -29,8 +29,6 @@ void deck_init(void)
 
 card draw_card(void)
 {
-	printf("card drawn:\n\tvalue: %d\n\tsuit: %d\n", deck[deck_p].value, deck[deck_p].suit);
-
 	if (deck_p < FULL_DECK-1)
 		return deck[deck_p++];
 	else
