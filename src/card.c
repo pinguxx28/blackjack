@@ -47,4 +47,11 @@ void get_card(hand *h)
 	h->total_value += value;
 
 	h->num_cards++;
+
+	if (h->total_value > 21)
+		for (int i = 0; i < h->hand_p; i++)
+			if (h->hand[i].value == 1) {
+				h->total_value -= 10;
+				break;
+			}
 }
