@@ -13,11 +13,13 @@ typedef struct {
 
 typedef struct {
 	card hand[MAX_CARDS_ON_HAND];
+	int hand_p;
 	int total_value;
 	int num_cards;
 } hand;
 
 void deck_init(void);
 card draw_card(void);
+void get_card(hand *h);
 
 #endif

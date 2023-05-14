@@ -34,3 +34,15 @@ card draw_card(void)
 	else
 		EXIT("exceeded deck's cards\n");
 }
+
+void get_card(hand *h)
+{
+	card c = h->hand[h->hand_p++] = draw_card();
+	
+	int value = c.value;
+	if (c.value > 10) value = 10;
+	else if (c.value == 1) value = 11;
+	h->total_value += value;
+
+	h->num_cards++;
+}

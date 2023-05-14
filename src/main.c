@@ -13,6 +13,18 @@ int main(int argc, char *argv[])
 
 	deck_init();
 
+	hand *players = (hand *) malloc(num_players * sizeof(hand));
+	for (int n = 0; n < 2; n++)
+		for (int i = 0; i < num_players; i++)
+			get_card(&players[i]);
+
+	hand dealer = { 0 };
+	for (int n = 0; n < 2; n++)
+		get_card(&dealer);
+
+	PRINT_BINARY(dealer.hand[0].value | dealer.hand[0].suit << 6);
+	PRINT_BINARY(dealer.hand[1].value | dealer.hand[1].suit << 6);
+	
 
 
 	
