@@ -5,6 +5,20 @@
 
 #define DEF_N_PLAYERS 4
 
+int get_line(char line[], int max)
+{
+	int c, i;
+
+	for (i = 0; i < max; i++) {
+		line[i] = c = getchar();
+		if (c == '\n')
+			break;
+	}
+
+	line[i] = '\0';
+	return i;
+}
+
 int main(int argc, char *argv[])
 {
 	srand(time(0));
@@ -13,6 +27,14 @@ int main(int argc, char *argv[])
 	if (argc == 1) num_players = DEF_N_PLAYERS;
 	else if (argc == 2) num_players = atoi(argv[1]); /* TODO: what if NaN */
 	else EXIT("usage: blackjack [num_players] (default = 4)\n");
+
+	/* get bet */
+	int bet;
+	char bet_l[10];
+	printf("bet: ");
+	get_line(bet_l, 10);
+	bet = atoi(bet_l);
+
 
 	deck_init();
 
@@ -48,16 +70,25 @@ int main(int argc, char *argv[])
 
 	printf("player: %d\n", player.total_value);
 	
-	if (player.total_value > 21)
+	int state; /* 1 win, 0 push, -1 loss */
+	if (player.total_value > 21) {
 		printf("Player busts, you lose!\n");
-	else if (dealer.total_value > 21)
+		state = -1;
+	} else if (dealer.total_value > 21) {
 		printf("Dealer busts, you win!\n");
-	else if (player.total_value > dealer.total_value)
+		state = 1;
+	} else if (player.total_value > dealer.total_value) {
 		printf("You win!\n");
-	else if (player.total_value == dealer.total_value)
+		state = 1;
+	} else if (player.total_value == dealer.total_value) {
 		printf("It's a push!\n");
-	else if (player.total_value < dealer.total_value)
+		state = 0;
+	} else if (player.total_value < dealer.total_value) {
 		printf("You lose!\n");
+		state = -1;
+	}
+
+	printf("money += %d\n", bet * state);
 	
 
 
